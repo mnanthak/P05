@@ -1,93 +1,97 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import processing.core.PApplet;
 
 /**
  * The Deck class represents a deck of playing cards for the game Cabo. It manages a collection of
  * cards, including shuffling, drawing, and adding cards.
  */
 public class Deck {
-  
+
   // TODO: add everything else
-  
+
   /**
    * The list of cards in the deck.
    */
   protected ArrayList<BaseCard> cardList;
-  
+
   /**
    * The Processing environment used for drawing the deck
    */
   protected static processing.core.PApplet processing;
-  
+
   /**
-   * Constructs a new Deck based on the provided parameter. To create a full deck, pass in the 
-   * output of createDeck().
+   * Constructs a new Deck based on the provided parameter.
    * 
-   * @param deck the starting list of cards for this deck; should be either a full deck or an empty 
-   *        list.
-   * @throws IllegalStateException if the Processing environment is not set before creating a deck.
+   * @param deck the starting list of cards for this deck; should be either a full deck or an empty
+   *             list.
+   * @throws IllegalStateException if the Processing environment is not set before creating a deck
    */
   public Deck(ArrayList<BaseCard> deck) {
-    
+    if (processing == null) {
+      throw new IllegalStateException();
+    }
+    cardList = deck;
   }
-  
+
+  /**
+   * Sets the Processing environment to be used by the Deck class. This must be called before
+   * creating a deck.
+   * 
+   * @param processing the Processing environment to be used for drawing and interaction.
+   */
+  public static void setProcessing(processing.core.PApplet processing) {
+    Deck.processing = processing;
+  }
+
   /**
    * Draws a card from the top (end) of the deck.
    * 
    * @return the top card from the deck, or null if the deck is empty.
    */
   public BaseCard drawCard() {
-    
+    if (size() == 0) {
+      return null;
+    }
+    return cardList.get(size());
   }
-  
+
   /**
    * Adds a card to the top (end) of the deck.
    * 
    * @param card the card to add to the deck.
    */
   public void addCard(BaseCard card) {
-    
+    cardList.add(card);
   }
-  
+
   /**
    * Gets the current number of cards in the Deck.
    * 
    * @return the size of the deck.
    */
   public int size() {
-    
+    return cardList.size();
   }
-  
+
   /**
    * Checks if the deck is empty.
    * 
    * @return true if the deck is empty, false otherwise.
    */
   public boolean isEmpty() {
-    
+    if (size() == 0) {
+      return true;
+    }
+    return false;
   }
-  
-  /**
-   * Draws the top card of the deck onto the Processing canvas at the specified position. If the 
-   * deck is empty, draws a placeholder indicating the deck is empty.
-   * 
-   * @param x the x-coordinate to draw the card.
-   * @param y the y-coordinate to draw the card.
-   * @param isDiscard whether the deck is a discard pile, in which case the top card should be 
-   *        drawn face-up. Otherwise, the top card should be face-down.
-   */
-  public void draw(int x, int y, boolean isDiscard) {
-    
-  }
-  
+
   /**
    * Sets up the deck with CABO cards, including action cards. Initializes the deck with all
    * necessary cards and shuffles them.
-   *
-   * @return the completed ArrayList of CABO cards
+   * 
+   * @return a shuffled list of the 52 cards for CABO, populated with NumberCards and ActionCards.
    */
-  public static ArrayList<BaseCard> createDeck() {
+  public ArrayList<BaseCard> createDeck() {
     ArrayList<BaseCard> cardList = new ArrayList<>();
 
     // Define the suits
@@ -107,14 +111,37 @@ public class Deck {
           } else {
             actionType = "switch";
           }
-          cardList.add(new ActionCard(rank, suit, actionType));  // Add ActionCard to deck
+          cardList.add(new ActionCard(rank, suit, actionType)); // Add ActionCard to deck
         } else {
-          cardList.add(new BaseCard(rank, suit));  // Add NumberCard to deck
+          cardList.add(new BaseCard(rank, suit)); // Add NumberCard to deck
         }
       }
     }
     Collections.shuffle(cardList);
     return cardList;
+  }
+
+  /**
+   * Draws the top card of the deck onto the Processing canvas at the specified position. If the
+   * deck is empty, draws a placeholder indicating the deck is empty.
+   * 
+   * @param x         the x-coordinate to draw the card.
+   * @param y         the y-coordinate to draw the card.
+   * @param isDiscard whether the deck is a discard pile, in which case the top card should be drawn
+   *                  face-up. Otherwise, the top card should be face-down.
+   */
+  public void draw(int x, int y, boolean isDiscard) {
+    if (isEmpty()) {
+      processing.stroke(0);
+      processing.fill(0);
+      processing.rect(x, y, 50, 70, 7);
+      processing.fill(255);
+      processing.textSize(12);
+      processing.textAlign(processing.CENTER, processing.CENTER);
+      processing.text("Empty", x + 25, y + 35);
+    }
+    drawCard().setFaceUp(isDiscard);
+    drawCard().draw(x, y);
   }
 
 }
