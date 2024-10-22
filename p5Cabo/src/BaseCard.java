@@ -129,7 +129,12 @@ public class BaseCard {
    * @return the rank of the card, or -1 for the King of Diamonds
    */
   public int getRank() {
-    return rank;
+    if (this.toString().equals("Diamonds 13")) {
+      return -1;
+    }
+    else {
+      return rank;
+    }
   }
   
   /**
