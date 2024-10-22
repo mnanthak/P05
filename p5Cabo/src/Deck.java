@@ -7,8 +7,6 @@ import java.util.Collections;
  */
 public class Deck {
 
-  // TODO: add everything else
-
   /**
    * The list of cards in the deck.
    */
