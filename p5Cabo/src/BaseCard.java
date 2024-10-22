@@ -1,3 +1,12 @@
+import processing.core.PImage;
+import processing.core.PApplet;
+import processing.core.PConstants;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import java.io.File;
+
 /**
  * The BaseCard class provides the foundation for a playing card in the game.
  */
@@ -66,8 +75,25 @@ public class BaseCard {
    *         the card.
    */
   public BaseCard(int rank, String suit) {
+    // Throw IllegalStateException error if processing variable is null
+    if (processing == null) {
+      throw new IllegalStateException("The Processing environment has not been set.");
+    }
     
-  }
+    // Assign rank and suit variables to the parameters present
+    this.rank = rank;
+    this.suit = suit;
+    
+    // Set card face down
+    faceUp = false;
+    
+    // Initialize cardBack if the image is null (hasn't been initialized)
+    if (cardBack == null) {
+      cardBack = processing.loadImage("images"+File.separator+"back.png");
+    }
+    
+    // Initialize cardImage based on rank and suit
+    cardImage = processing.loadImage("images"+File.separator+rank+"_of_"+suit.toLowerCase()+".png");  }
   
   /**
    * Sets the Processing environment to be used for drawing and interacting with cards. This method 
@@ -76,7 +102,7 @@ public class BaseCard {
    * @param processing the Processing PApplet environment
    */
   public static void setProcessing(processing.core.PApplet processing) {
-  
+    BaseCard.processing = processing;
   }
   
   /**
@@ -85,7 +111,7 @@ public class BaseCard {
    * @return the rank of the card, or -1 for the King of Diamonds
    */
   public int getRank() {
-    
+    return rank;
   }
   
   /**
@@ -94,7 +120,7 @@ public class BaseCard {
    * @param faceUp if true, set the card face-up; if false, set it face-down.
    */
   public void setFaceUp(boolean faceUp) {
-    
+    this.faceUp = faceUp; 
   }
   
   /**
@@ -104,7 +130,7 @@ public class BaseCard {
    */
   @Override
   public String toString() {
-  
+    return suit + " " + rank;
   }
   
   /**
@@ -118,7 +144,20 @@ public class BaseCard {
    * @param yPosition the y-coordinate to draw the card.
    */
   public void draw(int xPosition, int yPosition) {
+    // Assign xPosition and yPosition to x and y
+    x = xPosition;
+    y = yPosition;
     
+    // Create white rectangle for card to sit on
+    processing.fill(255);
+    processing.rect(x, y, WIDTH, HEIGHT);
+    
+    // Draw image at specified position
+    if (faceUp) {
+      processing.image(cardImage, x, y, WIDTH, HEIGHT);
+    } else {
+      processing.image(cardBack, x, y, WIDTH, HEIGHT);
+    }
   }
   
   /**
@@ -129,6 +168,13 @@ public class BaseCard {
    * @return true if the card is under the mouse's current position, false otherwise.
    */
   public boolean isMouseOver() {
+    int mouseX = processing.mouseX;
+    int mouseY = processing.mouseY;
     
+    if (mouseX > x && mouseX < x + WIDTH && mouseY > y - HEIGHT && mouseY < y + HEIGHT) {
+      return true;
+    }
+    
+    return false;
   }
 }
