@@ -1,6 +1,6 @@
 //////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
-// Title:    (descriptive title of the program making use of this file)
+// Title:    Class designed to create cards to be used for Cabo Game
 // Course:   CS 300 Fall 2024
 //
 // Author:   Harsh Singh
