@@ -92,7 +92,8 @@ public class Deck {
    * @return a shuffled list of the 52 cards for CABO, populated with NumberCards and ActionCards.
    */
   public ArrayList<BaseCard> createDeck() {
-    ArrayList<BaseCard> cardList = new ArrayList<>();
+    // CHANGED THIS IN DECK
+    cardList = new ArrayList<>();
 
     // Define the suits
     String[] suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
