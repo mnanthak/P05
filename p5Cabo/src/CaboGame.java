@@ -45,10 +45,29 @@ public class CaboGame {
   public void setup() {
     textFont(createFont("Arial", 16));
     // TODO: setProcessing for the classes which require it
+    Deck.setProcessing(this);
+    ActionCard.setProcessing(this);
     
     deckCheck();
     
     // TODO: set up deck and discard pile
+    ArrayList<BaseCard> deckCards = new ArrayList<>();
+    deck = new Deck(deckCards);
+    deckCards = deck.createDeck();
+    deck.draw(500, 80, false);
+    
+    ArrayList<BaseCard> discardCards = new ArrayList<>();
+    discard = new Deck(discardCards);
+    
+    discard.draw(600, 80, true);
+    
+    drawnCard = null;
+    
+    textSize(16);
+    fill(255);
+    text("Deck:", 520, 60);
+    text("Discard Pile:", 644, 60);
+    
     // TODO: set up players array and deal their cards
     // TODO: set up buttons and update their states for the beginning of the game
     // TODO: update the gameMessages log: "Turn for "+currentPlayer.name
@@ -58,11 +77,72 @@ public class CaboGame {
    * Console-only output for verifying the setup of the card objects and the deck containing them
    */
   public void deckCheck() {
-    System.out.println("TODO");
+    // Create deck of cards which we are checking conditions for
+    ArrayList<BaseCard> deckCards = new ArrayList<>();
+    deck = new Deck(deckCards);
+    deckCards = deck.createDeck();
+    
     // TODO: verify that there are 52 cards in the deck
+    // Not actually changing cardList variable
+    System.out.println("Deck size is 52: " + (deckCards.size() == 52));
+    
     // TODO: verify that there are 8 of each type of ActionCard
+    int numActionPeek = 0;
+    int numActionSpy = 0;
+    int numActionSwitch = 0;
+    
+    
+    for (int i = 0; i < deckCards.size(); i++) {
+      if (deckCards.get(i) instanceof ActionCard) {
+        if (((ActionCard) deckCards.get(i)).getActionType().equalsIgnoreCase("peek")) {
+          numActionPeek++;
+        }
+        else if (((ActionCard) deckCards.get(i)).getActionType().equalsIgnoreCase("spy")) {
+          numActionSpy++;
+        }
+        else if (((ActionCard) deckCards.get(i)).getActionType().equalsIgnoreCase("switch")) {
+          numActionSwitch++;
+        }
+      }
+    }
+    
+    System.out.println("Found correct numbers of action cards: " + (numActionPeek == 8 
+        && numActionSpy == 8 && numActionSwitch == 8));
+    
     // TODO: verify that there are 13 of each suit
+    int numHearts = 0;
+    int numSpades = 0;
+    int numDiamonds = 0;
+    int numClubs = 0;
+    
+    
+    for (int i = 0; i < deckCards.size(); i++) {
+      if (deckCards.get(i).toString().split(" ")[0].equals("Hearts")) {
+        numHearts++;
+      }
+      else if (deckCards.get(i).toString().split(" ")[0].equals("Spades")) {
+        numSpades++;
+      }
+      else if (deckCards.get(i).toString().split(" ")[0].equals("Diamonds")) {
+        numDiamonds++;
+      }
+      else if (deckCards.get(i).toString().split(" ")[0].equals("Clubs")) {
+        numClubs++;
+      }
+    }
+    
+    System.out.println("Found correct numbers of each suit: " + (numHearts == 13
+        && numSpades == 13 && numDiamonds == 13 && numClubs == 13));
+    
+    
     // TODO: verify that the king of diamonds' getRank() returns -1
+    for (int i = 0; i < deckCards.size(); i++) {
+      if (deckCards.get(i).toString().equals("Diamonds 13") 
+          && deckCards.get(i).getRank() == -1) {
+        System.out.println("King of Diamonds found!");
+      }
+    }
+    
   }
   
   /**
