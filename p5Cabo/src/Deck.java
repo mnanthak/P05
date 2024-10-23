@@ -28,8 +28,10 @@ public class Deck {
    */
   public Deck(ArrayList<BaseCard> deck) {
     if (processing == null) {
-      throw new IllegalStateException();
+      throw new IllegalStateException("The Processing environment has not been set.");
     }
+
+    // Assign BaseCard ArrayList field to BaseCard ArrayList argument
     cardList = deck;
   }
 
@@ -52,7 +54,7 @@ public class Deck {
     if (size() == 0) {
       return null;
     }
-    return cardList.get(size());
+    return cardList.get(size() - 1);
   }
 
   /**
@@ -91,7 +93,7 @@ public class Deck {
    * 
    * @return a shuffled list of the 52 cards for CABO, populated with NumberCards and ActionCards.
    */
-  public ArrayList<BaseCard> createDeck() {
+  public static ArrayList<BaseCard> createDeck() {
     ArrayList<BaseCard> cardList = new ArrayList<>();
 
     // Define the suits
@@ -139,9 +141,10 @@ public class Deck {
       processing.textSize(12);
       processing.textAlign(processing.CENTER, processing.CENTER);
       processing.text("Empty", x + 25, y + 35);
+    } else {
+      drawCard().setFaceUp(isDiscard);
+      drawCard().draw(x, y);
     }
-    drawCard().setFaceUp(isDiscard);
-    drawCard().draw(x, y);
   }
 
 }
