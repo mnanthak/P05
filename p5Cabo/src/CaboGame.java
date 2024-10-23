@@ -5,7 +5,53 @@ import processing.core.PApplet;
  * The CaboGame class implements the main game logic for the card game CABO.
  * It manages the deck, discard pile, players, game state, and user interactions.
  */
-public class CaboGame {
+public class CaboGame extends processing.core.PApplet{
+  
+  /**
+   * Contains the UI Buttons for game actions.
+   */
+  private Button[] buttons;
+  
+  /**
+   * The index of the player who declared Cabo
+   */
+  private int caboPlayer;
+  
+  /**
+   * The index of the current player in the list of players.
+   */
+  private int currentPlayer;
+  
+  /**
+   * The deck of cards used in the game.
+   */
+  private Deck deck;
+  
+  /**
+   * The discard pile for cards that have been played or discarded.
+   */
+  private Deck discard;
+  
+  /**
+   * The card that has been drawn from the deck.
+   */
+  private BaseCard drawnCard;
+  
+  /**
+   * Flag indicating if the game is over.
+   */
+  private boolean gameOver;
+  
+  /**
+   * The list of players in the game.
+   */
+  private Player[] players;
+  
+  /**
+   * The index of the first card selected by the current player for the switching action.
+   */
+  private int selectedCardFromCurrentPlayer;
+
   
   /**
    * Enum representing the different action states in the game
@@ -20,6 +66,8 @@ public class CaboGame {
   
   // provided data fields for tracking the players' moves through the game
   private ArrayList<String> gameMessages = new ArrayList<>();
+  
+  
   
   /**
    * Launch the game window; PROVIDED. Note: the argument to PApplet.main() must match the name
@@ -58,7 +106,6 @@ public class CaboGame {
     
     ArrayList<BaseCard> discardCards = new ArrayList<>();
     discard = new Deck(discardCards);
-    
     discard.draw(600, 80, true);
     
     drawnCard = null;
