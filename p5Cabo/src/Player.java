@@ -1,27 +1,27 @@
 //////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
 //
-// Title:    Class designed to model a CABO player while they play the CABO game.
-// Course:   CS 300 Fall 2024
+// Title: Class designed to model a CABO player while they play the CABO game.
+// Course: CS 300 Fall 2024
 //
-// Author:   Harsh Singh
-// Email:    hvsingh@wisc.edu
+// Author: Harsh Singh
+// Email: hvsingh@wisc.edu
 // Lecturer: Hobbes LeGault
 //
 //////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
-// 
-// Partner Name:    Mohnish Nanthakumar
-// Partner Email:   mnanthakumar@wisc.edu
+//
+// Partner Name: Mohnish Nanthakumar
+// Partner Email: mnanthakumar@wisc.edu
 // Partner Lecturer's Name: Hobbes LeGault
-// 
+//
 // VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
-//   X Write-up states that pair programming is allowed for this assignment.
-//   X We have both read and understand the course Pair Programming Policy.
-//   X We have registered our team prior to the team registration deadline.
+// X Write-up states that pair programming is allowed for this assignment.
+// X We have both read and understand the course Pair Programming Policy.
+// X We have registered our team prior to the team registration deadline.
 //
 //////////////////////// ASSISTANCE/HELP CITATIONS ////////////////////////////
 //
-// Persons:         NONE
-// Online Sources:  NONE
+// Persons: NONE
+// Online Sources: NONE
 
 /**
  * This class models a CABO player for use in the CS300 P05 CABO project. A Player can be either a
