@@ -1,3 +1,28 @@
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Class designed to account for buttons that are being pressed
+// Course:   CS 300 Fall 2024
+//
+// Author:   Harsh Singh
+// Email:    hvsingh@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+// 
+// Partner Name:    Mohnish Nanthakumar
+// Partner Email:   mnanthakumar@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
+//
+//////////////////////// ASSISTANCE/HELP CITATIONS ////////////////////////////
+//
+// Persons:         NONE
+// Online Sources:  NONE
+
 import processing.core.PApplet;
 
 /**
@@ -114,9 +139,7 @@ public class Button {
    * Renders the button on the Processing canvas. The button changes color based on its isActive
    * parameter and whether the mouse is currently over it
    */
-  public void draw() {
-    processing.rect(x, y, width, height, 5);
-
+  public void draw() {;
     if (active) {
       if (isMouseOver()) {
         processing.fill(150);
@@ -126,9 +149,11 @@ public class Button {
     } else {
       processing.fill(255, 51, 51);
     }
+    processing.rect(x, y, width, height, 5);
+    processing.fill(0);
     processing.textSize(14);
     processing.textAlign(PApplet.CENTER, PApplet.CENTER);
-    processing.text(label, x - width / 2, y - height / 2);
+    processing.text(label, x + width / 2, y + height / 2);
   }
 
   /**
