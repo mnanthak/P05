@@ -1,10 +1,34 @@
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title: Class designed to create and play the Cabo Game
+// Course: CS 300 Fall 2024
+//
+// Author: Harsh Singh
+// Email: hvsingh@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name: Mohnish Nanthakumar
+// Partner Email: mnanthakumar@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+//
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+// X Write-up states that pair programming is allowed for this assignment.
+// X We have both read and understand the course Pair Programming Policy.
+// X We have registered our team prior to the team registration deadline.
+//
+//////////////////////// ASSISTANCE/HELP CITATIONS ////////////////////////////
+//
+// Persons: NONE
+// Online Sources: NONE
+
 import java.util.ArrayList;
 
 /**
  * This class models a mini-Deck that each player holds - their "hand" of cards.
  */
 public class Hand extends Deck {
-  // TODO: Whole class
 
   /**
    * The maximum number of cards that each player's hand may contain
