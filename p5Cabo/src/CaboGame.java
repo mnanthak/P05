@@ -177,12 +177,11 @@ public class CaboGame extends processing.core.PApplet{
    */
   public void deckCheck() {
     // Create deck of cards which we are checking conditions for
-    ArrayList<BaseCard> deckCards = new ArrayList<>();
-    Deck deck = new Deck(deckCards);
-    deckCards = deck.createDeck();
+    ArrayList<BaseCard> deckCards = Deck.createDeck();
+    Deck deck = new Deck(deckCards);  
     
     // TODO: verify that there are 52 cards in the deck
-    System.out.println("Deck size is 52: " + (deckCards.size() == 52));
+    System.out.println("Deck size is 52: " + (deck.size() == 52));
     
     // TODO: verify that there are 8 of each type of ActionCard
     int numActionPeek = 0;
