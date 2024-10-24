@@ -75,7 +75,7 @@ public class CaboGame extends processing.core.PApplet {
   /**
    * The index of the first card selected by the current player for the switching action.
    */
-  private int currentPlayerCardIndex;
+  private int selectedCardFromCurrentPlayer;
 
 
   /**
@@ -300,7 +300,7 @@ public class CaboGame extends processing.core.PApplet {
     }
 
     // Set the selected current player index to -1
-    currentPlayerCardIndex = -1;
+    selectedCardFromCurrentPlayer = -1;
 
     // show the drawn card, if there is one
     if (drawnCard != null) {
@@ -544,12 +544,12 @@ public class CaboGame extends processing.core.PApplet {
   public void handleSwitch() {
     // create variables for switch event
     int otherPlayerIndex = -1;
-    int otherPlayerCardIndex = -1;
+    int selectedCardFromOtherPlayer = -1;
 
     // check if the player has selected a card from their own hand yet
     // if they haven't: determine which card in their own hand the mouse is
-    if (currentPlayerCardIndex == -1) {
-      currentPlayerCardIndex = players[currentPlayer].getHand().indexOfMouseOver();
+    if (selectedCardFromCurrentPlayer == -1) {
+      selectedCardFromCurrentPlayer = players[currentPlayer].getHand().indexOfMouseOver();
     }
     // if they have selected a card from their own hand already:
     // find a card from any OTHER player's hand that the mouse is currently
@@ -558,7 +558,7 @@ public class CaboGame extends processing.core.PApplet {
       for (int i = 0; i < players.length; i++) {
         if (players[i] != players[currentPlayer]) {
           if (players[i].getHand().indexOfMouseOver() != -1) {
-            otherPlayerCardIndex = players[i].getHand().indexOfMouseOver();
+            selectedCardFromOtherPlayer = players[i].getHand().indexOfMouseOver();
             otherPlayerIndex = i;
             break;
           }
@@ -567,8 +567,8 @@ public class CaboGame extends processing.core.PApplet {
     }
 
     // swap the selected card with the card from the currentPlayer's hand
-    players[currentPlayer].getHand().switchCards(currentPlayerCardIndex,
-        players[otherPlayerIndex].getHand(), otherPlayerCardIndex);
+    players[currentPlayer].getHand().switchCards(selectedCardFromCurrentPlayer,
+        players[otherPlayerIndex].getHand(), selectedCardFromOtherPlayer);
 
     // update the gameMessages log
     setGameStatus("Switched a card with " + players[otherPlayerIndex].getName());
@@ -588,14 +588,16 @@ public class CaboGame extends processing.core.PApplet {
     // update the knowledge of the swapped card for the other player
     for (int i = 1; i < players.length; i++) {
       if (players[i] instanceof AIPlayer) {
-        boolean knowledge = ((AIPlayer) players[i]).getCardKnowledge(i, otherPlayerCardIndex);
-        ((AIPlayer) players[i]).setCardKnowledge(i, otherPlayerCardIndex,
-            ((AIPlayer) players[i]).getCardKnowledge(currentPlayer, currentPlayerCardIndex));
-        ((AIPlayer) players[i]).setCardKnowledge(currentPlayer, currentPlayerCardIndex, knowledge);
+        boolean knowledge =
+            ((AIPlayer) players[i]).getCardKnowledge(i, selectedCardFromOtherPlayer);
+        ((AIPlayer) players[i]).setCardKnowledge(i, selectedCardFromOtherPlayer,
+            ((AIPlayer) players[i]).getCardKnowledge(currentPlayer, selectedCardFromCurrentPlayer));
+        ((AIPlayer) players[i]).setCardKnowledge(currentPlayer, selectedCardFromCurrentPlayer,
+            knowledge);
       }
     }
     // reset the selected card instance variable to -1
-    currentPlayerCardIndex = -1;
+    selectedCardFromCurrentPlayer = -1;
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
