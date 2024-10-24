@@ -1,3 +1,28 @@
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Class designed to create the deck to be used
+// Course:   CS 300 Fall 2024
+//
+// Author:   Harsh Singh
+// Email:    hvsingh@wisc.edu
+// Lecturer: Hobbes LeGault
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+// 
+// Partner Name:    Mohnish Nanthakumar
+// Partner Email:   mnanthakumar@wisc.edu
+// Partner Lecturer's Name: Hobbes LeGault
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   X Write-up states that pair programming is allowed for this assignment.
+//   X We have both read and understand the course Pair Programming Policy.
+//   X We have registered our team prior to the team registration deadline.
+//
+//////////////////////// ASSISTANCE/HELP CITATIONS ////////////////////////////
+//
+// Persons:         NONE
+// Online Sources:  NONE
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -6,9 +31,6 @@ import java.util.Collections;
  * cards, including shuffling, drawing, and adding cards.
  */
 public class Deck {
-
-  // TODO: add everything else
-
   /**
    * The list of cards in the deck.
    */
@@ -28,10 +50,8 @@ public class Deck {
    */
   public Deck(ArrayList<BaseCard> deck) {
     if (processing == null) {
-      throw new IllegalStateException("The Processing environment has not been set.");
+      throw new IllegalStateException();
     }
-
-    // Assign BaseCard ArrayList field to BaseCard ArrayList argument
     cardList = deck;
   }
 
@@ -54,7 +74,12 @@ public class Deck {
     if (size() == 0) {
       return null;
     }
-    return cardList.get(size() - 1);
+    
+    BaseCard drawnCard = cardList.get(size() - 1);
+    
+    cardList.remove(size() - 1);
+    
+    return drawnCard;
   }
 
   /**
@@ -127,8 +152,8 @@ public class Deck {
    * Draws the top card of the deck onto the Processing canvas at the specified position. If the
    * deck is empty, draws a placeholder indicating the deck is empty.
    * 
-   * @param x         the x-coordinate to draw the card.
-   * @param y         the y-coordinate to draw the card.
+   * @param x the x-coordinate to draw the card.
+   * @param y the y-coordinate to draw the card.
    * @param isDiscard whether the deck is a discard pile, in which case the top card should be drawn
    *                  face-up. Otherwise, the top card should be face-down.
    */
@@ -141,9 +166,10 @@ public class Deck {
       processing.textSize(12);
       processing.textAlign(processing.CENTER, processing.CENTER);
       processing.text("Empty", x + 25, y + 35);
-    } else {
-      drawCard().setFaceUp(isDiscard);
-      drawCard().draw(x, y);
+    }
+    else {
+      cardList.get(size() - 1).setFaceUp(isDiscard);
+      cardList.get(size() - 1).draw(x, y);
     }
   }
 
